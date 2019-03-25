@@ -105,17 +105,40 @@ bool* StrDecToBin(string Dec)
 	string tempRes15Bit;
 	string tempFrac;
 	int size = 0;
+	bool ktCoPhanFrac = false;
+	for (int i = 0; i < Dec.length(); i++)
+	{
+		if (Dec[i] == '.')
+		{
+			ktCoPhanFrac = true;
+			break;
+		}
+	}
 	int run = 0;
-	while (tempDec[run] != '.')
+	if (ktCoPhanFrac == false)
 	{
-		tempRes15Bit.push_back(tempDec[run]);
-		run++;
+		while (tempDec[run] != '\0')
+		{
+			tempRes15Bit.push_back(tempDec[run]);
+			run++;
+		}
+		tempFrac.push_back('.');
+		tempFrac.push_back('0');
 	}
-	while (tempDec[run] != '\0')
+	else
 	{
-		tempFrac.push_back(tempDec[run]);
-		run++;
+		while (tempDec[run] != '.')
+		{
+			tempRes15Bit.push_back(tempDec[run]);
+			run++;
+		}
+		while (tempDec[run] != '\0')
+		{
+			tempFrac.push_back(tempDec[run]);
+			run++;
+		}
 	}
+	
 	if (tempFrac[0] == '.') //kiem tra coi co dau cham dau chuoi khong neu co thi xoa
 	{
 		tempFrac.erase(tempFrac.begin());
